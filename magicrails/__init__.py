@@ -1,11 +1,11 @@
 """Magicrails — an emergency brake for AI agents."""
 from __future__ import annotations
 
-from ._session import Magicrails, current
-from .guard import guard
-from .events import TripReason, ToolCall, TokenUsage
-from .exceptions import TripError
 from . import actions
+from ._session import Magicrails, current
+from .events import TokenUsage, ToolCall, TripReason
+from .exceptions import TripError
+from .guard import guard
 
 __version__ = "0.1.0"
 

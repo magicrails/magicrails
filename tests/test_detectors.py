@@ -25,14 +25,8 @@ def test_repeat_call_guard_does_not_trip_on_different_args():
 
 def test_repeat_call_guard_does_not_trip_on_different_tools():
     g = RepeatCallGuard(max_repeats=3)
-    for name in ["ls", "cat", "grep"] * 5:
-        reason = g.observe_call(ToolCall(name, {"arg": 1}))
-    # No single (name, args) pair appears 3 times because args are identical
-    # but names rotate — each individual pair hits count 5, so it *should* trip.
-    # Re-check with truly varied pairs:
-    g2 = RepeatCallGuard(max_repeats=3)
     for name in ["ls", "cat", "grep"]:
-        assert g2.observe_call(ToolCall(name, {"arg": 1})) is None
+        assert g.observe_call(ToolCall(name, {"arg": 1})) is None
 
 
 def test_budget_ceiling_trips_on_overspend():

@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a new detector, action, or capability for Magicrails core.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the agent failure mode or workflow gap, not the solution.
+      placeholder: My agent occasionally enters a state where...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: A new detector? A new on-trip action? An API change? Sketch the smallest version.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Why doesn't an existing detector / a custom `Detector` subclass / a custom `on_trip` handler cover this?
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      description: Magicrails is intentionally minimal — see the [Philosophy](https://github.com/magicrails/magicrails#philosophy) section.
+      options:
+        - label: This is about *stopping* a runaway agent (not observing, tracing, or routing it)
+        - label: I've checked this isn't already covered by `BudgetCeiling`, `RepeatCallGuard`, or `StateStasis`

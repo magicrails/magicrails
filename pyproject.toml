@@ -24,7 +24,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "ruff>=0.6", "build>=1.0"]
 
 [project.urls]
 Homepage = "https://github.com/magicrails/magicrails"
@@ -35,3 +35,11 @@ packages = ["magicrails"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "magicrails/models.json" = "magicrails/models.json"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "W"]
+ignore = ["E501"]  # line length is enforced by formatter, not lint

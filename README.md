@@ -1,5 +1,10 @@
 # 🛑 Magicrails
 
+[![CI](https://github.com/magicrails/magicrails/actions/workflows/ci.yml/badge.svg)](https://github.com/magicrails/magicrails/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/magicrails.svg)](https://pypi.org/project/magicrails/)
+[![Python](https://img.shields.io/pypi/pyversions/magicrails.svg)](https://pypi.org/project/magicrails/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > ⚠️ **Alpha (v0.1).** API may change before v1.0. Not yet recommended for production.
 
 **An emergency brake for AI agents.** Budget caps, loop detection, and state-stasis guards — in three lines of code.
@@ -178,13 +183,14 @@ python examples/budget_demo.py
 
 ## Contributing
 
-PRs for adapters, pricing updates, and new detectors are very welcome. Adapter files should stay under 60 lines. Detectors should stay stateless between sessions.
+PRs for adapters, pricing updates, and new detectors are very welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — including the recipe for adding a new framework adapter.
 
-Run the tests:
+Quick start:
 
 ```bash
 pip install -e '.[dev]'
 pytest
+ruff check magicrails tests
 ```
 
 ## License

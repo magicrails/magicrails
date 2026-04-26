@@ -1,0 +1,61 @@
+name: Bug report
+description: Magicrails did something wrong (or didn't do something it should have).
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of what you observed.
+      placeholder: I called `Magicrails(budget_usd=10.0)` and...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: Magicrails should have tripped after $10 of spend, but...
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: A short, self-contained snippet that reproduces the bug. Please remove API keys.
+      render: python
+      placeholder: |
+        from magicrails import Magicrails
+        with Magicrails(budget_usd=0.01) as s:
+            s.record_tokens("gpt-4o", 1_000_000, 1_000_000)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Magicrails version
+      placeholder: "0.1.0 (output of `pip show magicrails`)"
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12.3"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Ubuntu 24.04 / macOS 14 / Windows 11"
+
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Traceback (if any)
+      render: shell
