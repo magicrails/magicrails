@@ -33,7 +33,9 @@ def estimate_cost(
 ) -> float:
     rates = pricing.get(model)
     if rates is None:
-        for key in sorted(pricing.keys(), key=len, reverse=True):
+        # Underscore-prefixed keys (e.g. "_meta") are reserved for metadata.
+        candidates = [k for k in pricing if not k.startswith("_")]
+        for key in sorted(candidates, key=len, reverse=True):
             if model.startswith(key):
                 rates = pricing[key]
                 break

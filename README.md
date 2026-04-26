@@ -52,7 +52,7 @@ Tokens are counted, priced against a community-maintained table, and summed per 
 from magicrails import Magicrails
 
 with Magicrails(budget_usd=10.0) as session:
-    resp = client.messages.create(model="claude-opus-4-7", ...)
+    resp = client.messages.create(model="claude-opus-4-7", messages=[...])
     session.record_tokens(
         model="claude-opus-4-7",
         input=resp.usage.input_tokens,
@@ -70,7 +70,7 @@ from magicrails.adapters import anthropic as magicrails_anthropic
 client = magicrails_anthropic.instrument(Anthropic())
 
 with Magicrails(budget_usd=10.0):
-    client.messages.create(model="claude-opus-4-7", ...)   # auto-counted
+    client.messages.create(model="claude-opus-4-7", messages=[...])  # auto-counted
 ```
 
 Same shape for OpenAI:
@@ -83,7 +83,7 @@ from magicrails.adapters import openai as magicrails_openai
 client = magicrails_openai.instrument(OpenAI())
 
 with Magicrails(budget_usd=10.0):
-    client.chat.completions.create(model="gpt-4o", ...)    # auto-counted
+    client.chat.completions.create(model="gpt-4o", messages=[...])  # auto-counted
 ```
 
 ### 2. Repeat-call guard — stop tool loops dead
