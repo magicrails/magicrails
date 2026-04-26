@@ -1,13 +1,21 @@
-# 🛑 Magicrails
+<p align="center">
+  <img src="assets/logo.png" alt="MagicRails — the meerkat that halts your runaway AI agent" width="180" />
+</p>
 
-[![CI](https://github.com/magicrails/magicrails/actions/workflows/ci.yml/badge.svg)](https://github.com/magicrails/magicrails/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/magicrails.svg)](https://pypi.org/project/magicrails/)
-[![Python](https://img.shields.io/pypi/pyversions/magicrails.svg)](https://pypi.org/project/magicrails/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<h1 align="center">MagicRails</h1>
+
+<p align="center"><em>An emergency brake for AI agents.</em></p>
+
+<p align="center">
+  <a href="https://github.com/magicrails/magicrails/actions/workflows/ci.yml"><img src="https://github.com/magicrails/magicrails/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://pypi.org/project/magicrails/"><img src="https://img.shields.io/pypi/v/magicrails.svg" alt="PyPI"></a>
+  <a href="https://pypi.org/project/magicrails/"><img src="https://img.shields.io/pypi/pyversions/magicrails.svg" alt="Python"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
 > ⚠️ **Alpha (v0.1).** API may change before v1.0. Not yet recommended for production.
 
-**An emergency brake for AI agents.** Budget caps, loop detection, and state-stasis guards — in three lines of code.
+Budget caps, loop detection, and state-stasis guards — in three lines of code.
 
 ```python
 from magicrails import guard
