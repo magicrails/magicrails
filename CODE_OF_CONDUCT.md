@@ -20,7 +20,7 @@ We want this project to be a productive place for everyone who shows up to contr
 
 ## Reporting
 
-If you experience or witness behavior that breaks this code, contact the maintainers privately at **conduct@magicrails.dev** (replace with your real address before launch). Reports will be reviewed and acted on as quickly as the maintainers can manage. Reporters' identities will be kept confidential.
+If you experience or witness behavior that breaks this code, contact the maintainers privately at **masketir84000@gmail.com**. Reports will be reviewed and acted on as quickly as the maintainers can manage. Reporters' identities will be kept confidential.
 
 Maintainers may remove comments, lock threads, ban accounts, or take other actions they consider proportionate to the situation.
 

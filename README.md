@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="MagicRails — the meerkat that halts your runaway AI agent" width="180" />
+  <img src="https://raw.githubusercontent.com/magicrails/magicrails/main/assets/logo.png" alt="MagicRails — the meerkat that halts your runaway AI agent" width="180" />
 </p>
 
 <h1 align="center">MagicRails</h1>

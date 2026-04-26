@@ -13,7 +13,7 @@ While Magicrails is in `0.x`, only the latest minor version receives fixes.
 
 **Please do not open a public GitHub issue for security reports.**
 
-Email **security@magicrails.dev** (replace with your real address before launch) with:
+Email **masketir84000@gmail.com** with:
 
 - A description of the issue.
 - Steps to reproduce, or a minimal repro snippet.

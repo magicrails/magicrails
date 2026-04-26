@@ -36,6 +36,28 @@ packages = ["magicrails"]
 [tool.hatch.build.targets.wheel.force-include]
 "magicrails/models.json" = "magicrails/models.json"
 
+[tool.hatch.build.targets.sdist]
+include = [
+    "magicrails",
+    "tests",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "SECURITY.md",
+    "pyproject.toml",
+]
+exclude = [
+    "assets",
+    "launch",
+    ".github",
+    ".venv",
+    "dist",
+    "**/__pycache__",
+]
+
 [tool.ruff]
 line-length = 100
 target-version = "py310"
