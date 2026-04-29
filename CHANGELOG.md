@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-04-30
+
+The "LangChain & LangGraph" patch release. Pulls the two highest-impact framework adapters out of the v0.2 roadmap and ships them as a backward-compatible patch so production-agent users (LangGraph in particular) don't have to wait.
+
+### Added
+
+- LangChain / LangGraph callback adapter at `magicrails.adapters.langchain.MagicrailsCallbackHandler` (re-exported from `magicrails.adapters.langgraph` for discoverability). A single `BaseCallbackHandler` subclass covers both frameworks since LangGraph rides on LangChain's callback system. The handler reports token usage from `on_llm_end` and tool invocations from `on_tool_start`, and silently no-ops when no Magicrails session is active so the callback can be attached unconditionally.
+- Token-usage extractor handles both legacy (`llm_output["token_usage"]` with OpenAI- or Anthropic-shaped keys) and modern (`AIMessage.usage_metadata`) LangChain shapes.
+- `[langchain]` optional install extra: `pip install "magicrails[langchain]"` adds `langchain-core>=0.2`. Magicrails itself stays zero-dep — the import errors with a clear install hint if you instantiate the handler without langchain-core present.
+- 18 new tests covering extractor shapes (legacy OpenAI / legacy Anthropic / modern usage_metadata / missing usage / zero-token usage), handler routing (with/without active session, unnamed-tool fallback), the missing-langchain ImportError contract, and the LangGraph re-export.
+
+### Notes
+
+- `magicrails.adapters.crewai`, `magicrails.adapters.autogen`, and `magicrails.adapters.otel` remain on the v0.2 roadmap.
+
 ## [0.1.1] - 2026-04-27
 
 The "no false-positive stasis trips" patch release. Ships within the v0.1 launch week to neutralise the most-likely real-world bug in the launch build before it bites.

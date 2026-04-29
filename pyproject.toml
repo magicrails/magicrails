@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "magicrails"
-version = "0.1.1"
+version = "0.1.2"
 description = "An emergency brake for AI agents — budget caps, loop detection, and state-stasis guards in three lines of code."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -24,6 +24,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
+langchain = ["langchain-core>=0.2"]
 dev = ["pytest>=7.0", "ruff>=0.6", "build>=1.0"]
 
 [project.urls]

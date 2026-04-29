@@ -167,8 +167,8 @@ def my_agent(task): ...
 | --------------- | ------------------------------ | ----------- |
 | OpenAI SDK      | `magicrails.adapters.openai`        | ✅ v0.1     |
 | Anthropic SDK   | `magicrails.adapters.anthropic`     | ✅ v0.1     |
-| LangChain       | `magicrails.adapters.langchain`     | 🚧 v0.2     |
-| LangGraph       | `magicrails.adapters.langgraph`     | 🚧 v0.2     |
+| LangChain       | `magicrails.adapters.langchain`     | ✅ v0.1.2   |
+| LangGraph       | `magicrails.adapters.langgraph`     | ✅ v0.1.2   |
 | CrewAI          | `magicrails.adapters.crewai`        | 🚧 v0.2     |
 | AutoGen         | `magicrails.adapters.autogen`       | 🚧 v0.2     |
 | OpenTelemetry   | `magicrails.adapters.otel`          | 🚧 v0.2     |
