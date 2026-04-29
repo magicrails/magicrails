@@ -692,10 +692,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-state_projector-pattern" class="md-nav__link">
+  <a href="#the-state_projector-parameter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The state_projector pattern
+        The state_projector parameter
       
     </span>
   </a>
@@ -1053,10 +1053,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-state_projector-pattern" class="md-nav__link">
+  <a href="#the-state_projector-parameter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The state_projector pattern
+        The state_projector parameter
       
     </span>
   </a>
@@ -1132,7 +1132,7 @@
 <li>Partial outputs</li>
 </ul>
 <p>If the agent has produced no new tokens, no new plan items, no new tool results in 5 steps, it's stuck.</p>
-<h2 id="the-state_projector-pattern">The <code>state_projector</code> pattern<a class="headerlink" href="#the-state_projector-pattern" title="Permanent link">&para;</a></h2>
+<h2 id="the-state_projector-parameter">The <code>state_projector</code> parameter<a class="headerlink" href="#the-state_projector-parameter" title="Permanent link">&para;</a></h2>
 <p>State often contains noise that changes every step but doesn't represent real progress:</p>
 <ul>
 <li>Wall-clock timestamps</li>
@@ -1140,7 +1140,7 @@
 <li>Heartbeat counters</li>
 <li>The number of seconds since session start</li>
 </ul>
-<p>If the noise is in the state hash, stasis will <em>never</em> trip — even on a real loop. Filter noise out before hashing:</p>
+<p>If the noise is in the state hash, stasis will <em>never</em> trip — even on a real loop. Filter noise out before hashing by passing a <code>state_projector</code> callable (added in v0.1.1):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">project</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;request_id&quot;</span><span class="p">)}</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -1148,9 +1148,13 @@
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="o">...</span>
 </code></pre></div>
 <p>The projector is applied before hashing. A good projector is the smallest function that returns "the part of the state that changes when real work happens."</p>
+<div class="admonition tip">
+<p class="admonition-title">Built-in heuristic warning (v0.1.1+)</p>
+<p>On the first observed state, if no <code>state_projector</code> is set and Magicrails detects a UNIX timestamp, ISO-8601 datetime string, UUID, or a field named <code>timestamp</code> / <code>created</code> / <code>updated</code> / <code>*_at</code>, you'll get a one-shot <code>WARNING</code> on the <code>magicrails</code> logger pointing you at <code>state_projector</code>. The warning fires at most once per detector instance and goes away as soon as you pass a projector.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Stasis false positives are the most common Magicrails failure mode</p>
-<p>If you find stasis tripping on agents that are working correctly, the cause is almost always: your state contains a wall-clock timestamp, UUID, or counter that mutates every step regardless of progress. Add a <code>state_projector</code> to filter it out.</p>
+<p>If stasis trips on agents that are working correctly, the cause is almost always: your state contains a wall-clock timestamp, UUID, or counter that mutates every step regardless of progress. Add a <code>state_projector</code> to filter it out.</p>
 </div>
 <h2 id="choosing-stasis_steps">Choosing <code>stasis_steps</code><a class="headerlink" href="#choosing-stasis_steps" title="Permanent link">&para;</a></h2>
 <table>

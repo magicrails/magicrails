@@ -934,9 +934,23 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>, and this project adheres to <a href="https://semver.org/">Semantic Versioning</a>.</p>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h2 id="011-2026-04-27">[0.1.1] - 2026-04-27<a class="headerlink" href="#011-2026-04-27" title="Permanent link">&para;</a></h2>
+<p>The "no false-positive stasis trips" patch release. Ships within the v0.1 launch week to neutralise the most-likely real-world bug in the launch build before it bites.</p>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>state_projector</code> parameter on <code>StateStasis</code>, <code>Magicrails(...)</code>, and the <code>@guard</code> decorator. Pass a callable that filters volatile fields (timestamps, UUIDs, request IDs) out of the state before hashing — without it, a state that contains a wall-clock timestamp produces a fresh hash every step and stasis never trips.</li>
+<li>One-shot heuristic warning on the first observed state: when no <code>state_projector</code> is configured and the state contains a UNIX timestamp, an ISO-8601 datetime string, a UUID, or a field named <code>timestamp</code> / <code>created</code> / <code>updated</code> / <code>*_at</code>, <code>magicrails.StateStasis</code> logs a single <code>WARNING</code> explaining the issue and pointing at <code>state_projector</code>. Fires at most once per detector instance.</li>
+<li>12 new tests covering the projector, heuristic detection of UNIX-second + millisecond timestamps, ISO-8601 strings, UUIDs, name-based field matches, the projector-configured silence path, and the once-per-detector limit.</li>
+</ul>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The projector is the recommended way to use <code>stasis_steps</code> in any agent whose state contains per-step volatile data; the heuristic is a safety net, not a substitute.</li>
+<li>Bool values are explicitly excluded from the timestamp range check (Python booleans subclass <code>int</code>).</li>
+<li>Top-level scalar states are checked the same way as nested fields.</li>
+</ul>
 <h2 id="010-2026-04-27">[0.1.0] - 2026-04-27<a class="headerlink" href="#010-2026-04-27" title="Permanent link">&para;</a></h2>
 <p>Initial public release.</p>
-<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>Magicrails</code> context manager and <code>@guard</code> decorator for halting AI agents on detected failure modes.</li>
 <li>Three detectors:</li>
@@ -951,7 +965,7 @@
 <li>Examples: <code>examples/basic.py</code>, <code>examples/budget_demo.py</code>, <code>examples/repeat_loop_demo.py</code>.</li>
 <li>Tests for all detectors, the session lifecycle, and the pricing layer.</li>
 </ul>
-<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Public API is intentionally minimal: <code>Magicrails</code>, <code>current</code>, <code>guard</code>, <code>TripReason</code>, <code>ToolCall</code>, <code>TokenUsage</code>, <code>TripError</code>, <code>actions</code>.</li>
 <li>Zero required runtime dependencies. Python 3.10+.</li>
