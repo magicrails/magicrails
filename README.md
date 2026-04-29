@@ -13,6 +13,12 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
+<p align="center">
+  <a href="https://asciinema.org/a/GLF1cEzA3apRlRtF">
+    <img src="https://asciinema.org/a/GLF1cEzA3apRlRtF.svg" alt="Magicrails halting a runaway agent before the bill arrives" width="720" />
+  </a>
+</p>
+
 > ⚠️ **Alpha (v0.1).** API may change before v1.0. Not yet recommended for production.
 
 Budget caps, loop detection, and state-stasis guards — in three lines of code.
@@ -25,6 +31,31 @@ def my_agent(task): ...
 ```
 
 That's it. If your agent loops, stalls, or runs past its budget, Magicrails halts it before you get the bill.
+
+### What it looks like
+
+```
+🤖 Customer Support Agent — Task #4729
+task   : refund a duplicate charge for customer #1124
+model  : claude-opus-4-7
+budget : $5.00   (Magicrails 🛑 watching)
+
+step   1  thinking…                              [█░░░░░░░░░░░░░░░░░░░░░░░] $ 0.23
+step   6  calling search_orders(customer=1124)   [██████░░░░░░░░░░░░░░░░░░] $ 1.35
+step  12  calling search_orders(customer=1124)   [████████████░░░░░░░░░░░░] $ 2.70
+step  18  calling search_orders(customer=1124)   [███████████████████░░░░░] $ 4.05
+step  23  thinking…                              [████████████████████████] $ 5.17
+
+🛑  HALT  🛑
+[BudgetCeiling] Budget ceiling $5.00 reached (spent $5.1750)
+
+halted in : ~3.4s
+left running overnight at this cost-per-step, the bill would be ~$648.
+
+✓ saved by Magicrails
+```
+
+Run it yourself: `python examples/runaway_agent.py`.
 
 ---
 
@@ -171,15 +202,23 @@ If you want traces, use [Langfuse](https://langfuse.com) or [Arize Phoenix](http
 
 ## Examples
 
+- [examples/runaway_agent.py](examples/runaway_agent.py) — **the headline demo.** Watch a stuck support agent burn through a $5 budget in ~3 seconds before Magicrails halts it. Projects what the bill *would* have been left running overnight.
 - [examples/basic.py](examples/basic.py) — minimal integration
-- [examples/budget_demo.py](examples/budget_demo.py) — watch Magicrails halt a token-burning loop
+- [examples/budget_demo.py](examples/budget_demo.py) — bare-bones token loop
 - [examples/repeat_loop_demo.py](examples/repeat_loop_demo.py) — catch a stuck tool loop
 
-Run any of them:
+Run the headline demo:
 
 ```bash
 pip install -e .
-python examples/budget_demo.py
+python examples/runaway_agent.py
+```
+
+Want to share it? Record an asciinema cast and convert to GIF:
+
+```bash
+asciinema rec -c "python examples/runaway_agent.py" save.cast
+agg save.cast save.gif --speed 1.0 --theme monokai
 ```
 
 ## Roadmap
