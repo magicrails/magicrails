@@ -1,0 +1,68 @@
+site_name: Magicrails
+site_description: An emergency brake for AI agents
+site_url: https://magicrails.github.io/magicrails/
+repo_url: https://github.com/magicrails/magicrails
+repo_name: magicrails/magicrails
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: red
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ["."]
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - The three guards:
+    - Budget ceiling: guards/budget.md
+    - Repeat-call guard: guards/repeat.md
+    - State-stasis guard: guards/stasis.md
+  - Adapters:
+    - OpenAI: adapters/openai.md
+    - Anthropic: adapters/anthropic.md
+    - LangChain: adapters/langchain.md
+  - On-trip actions: actions.md
+  - Pricing table: pricing.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
