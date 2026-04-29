@@ -7,7 +7,7 @@ from .events import TokenUsage, ToolCall, TripReason
 from .exceptions import TripError
 from .guard import guard
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "Magicrails",

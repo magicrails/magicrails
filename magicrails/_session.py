@@ -25,6 +25,7 @@ class Magicrails:
         budget_usd: Optional[float] = None,
         max_repeats: Optional[int] = None,
         stasis_steps: Optional[int] = None,
+        state_projector: Optional[Callable[[Any], Any]] = None,
         on_trip: Optional[Callable[[TripReason], None]] = None,
         pricing: Optional[dict] = None,
         detectors: Optional[list[Detector]] = None,
@@ -38,7 +39,9 @@ class Magicrails:
                 RepeatCallGuard(max_repeats=max_repeats, window=repeat_window)
             )
         if stasis_steps is not None:
-            self.detectors.append(StateStasis(max_steps=stasis_steps))
+            self.detectors.append(
+                StateStasis(max_steps=stasis_steps, state_projector=state_projector)
+            )
         self.on_trip = on_trip or default_halt
         self._token: Optional[contextvars.Token] = None
         self._tripped: Optional[TripReason] = None

@@ -32,7 +32,7 @@ Anything hashable. The most useful definition is the working memory of the agent
 
 If the agent has produced no new tokens, no new plan items, no new tool results in 5 steps, it's stuck.
 
-## The `state_projector` pattern
+## The `state_projector` parameter
 
 State often contains noise that changes every step but doesn't represent real progress:
 
@@ -41,7 +41,7 @@ State often contains noise that changes every step but doesn't represent real pr
 - Heartbeat counters
 - The number of seconds since session start
 
-If the noise is in the state hash, stasis will *never* trip — even on a real loop. Filter noise out before hashing:
+If the noise is in the state hash, stasis will *never* trip — even on a real loop. Filter noise out before hashing by passing a `state_projector` callable (added in v0.1.1):
 
 ```python
 def project(state: dict) -> dict:
@@ -53,8 +53,11 @@ with Magicrails(stasis_steps=5, state_projector=project) as session:
 
 The projector is applied before hashing. A good projector is the smallest function that returns "the part of the state that changes when real work happens."
 
+!!! tip "Built-in heuristic warning (v0.1.1+)"
+    On the first observed state, if no `state_projector` is set and Magicrails detects a UNIX timestamp, ISO-8601 datetime string, UUID, or a field named `timestamp` / `created` / `updated` / `*_at`, you'll get a one-shot `WARNING` on the `magicrails` logger pointing you at `state_projector`. The warning fires at most once per detector instance and goes away as soon as you pass a projector.
+
 !!! warning "Stasis false positives are the most common Magicrails failure mode"
-    If you find stasis tripping on agents that are working correctly, the cause is almost always: your state contains a wall-clock timestamp, UUID, or counter that mutates every step regardless of progress. Add a `state_projector` to filter it out.
+    If stasis trips on agents that are working correctly, the cause is almost always: your state contains a wall-clock timestamp, UUID, or counter that mutates every step regardless of progress. Add a `state_projector` to filter it out.
 
 ## Choosing `stasis_steps`
 

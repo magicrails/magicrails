@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-27
+
+The "no false-positive stasis trips" patch release. Ships within the v0.1 launch week to neutralise the most-likely real-world bug in the launch build before it bites.
+
+### Added
+
+- `state_projector` parameter on `StateStasis`, `Magicrails(...)`, and the `@guard` decorator. Pass a callable that filters volatile fields (timestamps, UUIDs, request IDs) out of the state before hashing — without it, a state that contains a wall-clock timestamp produces a fresh hash every step and stasis never trips.
+- One-shot heuristic warning on the first observed state: when no `state_projector` is configured and the state contains a UNIX timestamp, an ISO-8601 datetime string, a UUID, or a field named `timestamp` / `created` / `updated` / `*_at`, `magicrails.StateStasis` logs a single `WARNING` explaining the issue and pointing at `state_projector`. Fires at most once per detector instance.
+- 12 new tests covering the projector, heuristic detection of UNIX-second + millisecond timestamps, ISO-8601 strings, UUIDs, name-based field matches, the projector-configured silence path, and the once-per-detector limit.
+
+### Notes
+
+- The projector is the recommended way to use `stasis_steps` in any agent whose state contains per-step volatile data; the heuristic is a safety net, not a substitute.
+- Bool values are explicitly excluded from the timestamp range check (Python booleans subclass `int`).
+- Top-level scalar states are checked the same way as nested fields.
+
 ## [0.1.0] - 2026-04-27
 
 Initial public release.
