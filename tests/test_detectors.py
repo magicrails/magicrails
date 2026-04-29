@@ -124,7 +124,8 @@ def test_state_projector_filters_volatile_fields_so_stasis_trips():
     """Without a projector the timestamp would change every step and stasis
     would never trip. With a projector that drops the timestamp, identical
     'real' state trips at max_steps."""
-    project = lambda s: {k: v for k, v in s.items() if k != "timestamp"}
+    def project(s):
+        return {k: v for k, v in s.items() if k != "timestamp"}
     g = StateStasis(max_steps=3, state_projector=project)
 
     assert g.observe_state({"plan": "do X", "timestamp": 1_700_000_000}) is None
@@ -137,7 +138,8 @@ def test_state_projector_filters_volatile_fields_so_stasis_trips():
 
 def test_state_projector_still_detects_real_change():
     """A projector should not mask real state progress."""
-    project = lambda s: {k: v for k, v in s.items() if k != "timestamp"}
+    def project(s):
+        return {k: v for k, v in s.items() if k != "timestamp"}
     g = StateStasis(max_steps=3, state_projector=project)
 
     g.observe_state({"plan": "step 1", "timestamp": 1_700_000_000})
@@ -149,7 +151,8 @@ def test_state_projector_still_detects_real_change():
 
 def test_state_projector_threads_through_session():
     """Magicrails(state_projector=...) plumbs to the StateStasis detector."""
-    project = lambda s: {k: v for k, v in s.items() if k != "ts"}
+    def project(s):
+        return {k: v for k, v in s.items() if k != "ts"}
     with Magicrails(stasis_steps=3, state_projector=project) as s:
         s.record_state({"plan": "x", "ts": 1})
         s.record_state({"plan": "x", "ts": 2})
