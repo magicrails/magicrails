@@ -19,3 +19,5 @@ __all__ = [
     "TripError",
     "actions",
 ]
+
+del annotations
